@@ -1,6 +1,7 @@
 from load_csv import load
 import matplotlib.pyplot as plt
 from ft_statistics import functions
+from math import sqrt
 
 
 def calculRegressionLineaire(kmList : list, priceList : list) -> list:
@@ -13,11 +14,14 @@ def calculRegressionLineaire(kmList : list, priceList : list) -> list:
     # moyXCarré =
     # moyYCarré =
     varX = functions.var(priceList)
+    varY = functions.var(kmList)
     
     a = (moyXY - moyX * moyY) / varX
     print(a, " = (", moyXY, " - (", moyX, " * ", moyY, ")) / ", varX)
     b = moyY - (a * moyX)
     print(b, " = ", moyY, " - (", a, " * ", moyX, ")")
+    r = (moyXY - moyX * moyY) / (sqrt(varX) * sqrt(varY))
+    print("r =", r)
     return [a, b]
 
 
@@ -40,8 +44,8 @@ def main():
         print(y)
         plt.plot(price, km, 'o')
         plt.plot(x, y, color="red")
-        plt.xlabel("price")
-        plt.ylabel("km")
+        plt.xlabel("km")
+        plt.ylabel("price")
         plt.show()
         plt.close()
     except Exception as e:
